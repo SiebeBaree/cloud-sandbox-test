@@ -1,6 +1,7 @@
 // Clones the demo app into a Vercel Sandbox, installs, builds and serves it for HOLD_SECONDS.
 // Auth: VERCEL_TOKEN + VERCEL_TEAM_ID + VERCEL_PROJECT_ID (root .env), or a VERCEL_OIDC_TOKEN
 // from `vercel link && vercel env pull`. Also needs DATABASE_URL (demo-app/.env.local).
+import { posix } from "node:path";
 import { Sandbox } from "@vercel/sandbox";
 import {
   APP_DIR, BUILD, INSTALL, PORT, REPO_URL, START,
@@ -31,7 +32,8 @@ const sandbox = await run.step("create sandbox + clone", () =>
 );
 cleanupOnInterrupt(() => sandbox.stop());
 
-const appDir = `/vercel/sandbox/${APP_DIR}`;
+// With `image`, Vercel clones into <cwd>/<repo name>, not into cwd itself.
+const appDir = `${sandbox.cwd}/${posix.basename(new URL(REPO_URL).pathname, ".git")}/${APP_DIR}`;
 
 /** Runs a command in the app folder, streaming its output, and throws on a non-zero exit. */
 async function sh(command: string) {
