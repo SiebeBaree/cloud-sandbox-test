@@ -15,6 +15,8 @@ cd demo-app && npm install && npm run db:seed && npm run dev
 
 `db:seed` drops and recreates the `plants` table.
 
+For Vercel, `vercel link && vercel env pull .env.local` writes a `VERCEL_OIDC_TOKEN` that the runner picks up. The token lasts about 12 hours, so pull it again when it expires.
+
 ## Run
 
 ```sh

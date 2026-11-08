@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "daytona": "node --env-file-if-exists=.env daytona/index.ts",
-    "vercel": "node --env-file-if-exists=.env vercel-sandbox/index.ts",
+    "vercel": "node --env-file-if-exists=.env --env-file-if-exists=.env.local vercel-sandbox/index.ts",
     "boat": "node --env-file-if-exists=.env boat-dev/index.ts",
     "typecheck": "tsc"
   },
